@@ -1,7 +1,7 @@
 module.exports = {
-  "globDirectory": "C:\\xampp\\htdocs\\P3PAD",
+  "globDirectory": "C:\\Users\\alber\\Desktop\\ListaTareasPAD\\bertoo9712.github.io",
   "globPatterns": [
     "**/*.{html,js,json,css}"
   ],
-  "swDest": "C:/xampp/htdocs/P3PAD/sw.js"
+  "swDest": "C:/Users/alber/Desktop/ListaTareasPAD/bertoo9712.github.io/sw.js"
 };
