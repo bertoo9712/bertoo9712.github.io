@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Practica 3</title>
+        <meta charset="utf-8">
+        <link rel="manifest" href="manifest.json">
+        <link rel="stylesheet" type="text/css" href="style.css" />
+
+        <script>
+            // si nuestro navegador ejecuta service workers
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('sw.js').then(reg => {
+                        console.log('Todo bien:', reg)
+                    }, function (err) {
+                        console.log('Fallo:', err)
+                    })
+                })
+            }
+        </script>
+
+    </head>
+    <body>
+        <div id="areaSuperior">
+            <input id="añadirTarea" type="button" name="añadirTarea" value="Añadir tarea"><br/>
+            <!--<input id="tareaInput" type="text" name="nombre" placeholder="Introduce el nombre"><br/>-->
+            <!--<input id="btn-agregar" type="button" name="aceptar" value="Guardar">-->
+            <!--<input id="cancelarAreaSuperior" type="button" name="cancelar" value="Cancelar">-->
+        </div>
+        <div id="areaInferior">
+            <ul class="lista" id="lista">
+                <!--<li id="li-Tarea 1" name="Tarea 1"><input id="btn-Tarea 1" type="submit" name="tarea1" value="Tarea 1"><br/></li>
+                <li id="li-Tarea 2" name="Tarea 2"><input id="btn-Tarea 2" type="submit" name="tarea2" value="Tarea 2"><br/></li>
+                <li id="li-Tarea 3" name="Tarea 3"><input id="btn-Tarea 3" type="submit" name="tarea3" value="Tarea 3"><br/></li>-->
+            </ul>
+        </div>
+        <script src="main.js"></script>
+    </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "short_name": "Lista tareas",
+  "name": "Lista de tareas de la practica 3 PAD",
+  "description": "Practica 3 pad PWA lista de tareas",
+  "icons": [ ],
+  "start_url": "/",
+  "background_color": "#26AF31",
+  "display": "standalone",
+  "scope": "/"
+}   

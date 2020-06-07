@@ -1,0 +1,283 @@
+(function(){
+	// Variables
+	var lista = document.getElementById("lista"),
+		tareaInput = document.createElement("INPUT"),
+		bntAñadirTarea = document.getElementById("añadirTarea"),
+		botonAceptar = document.createElement("INPUT"),
+		botonCancelar = document.createElement("INPUT"),
+        areaSuperior = document.getElementById("areaSuperior");
+ 
+	// Funciones
+	
+	/*
+	var comprobarInput = function(){
+		tareaInput.className = "";
+		tareaInput.setAttribute("placeholder", "Agrega tu tarea");
+	};
+	*/
+
+	var eliminarTarea = function(){
+		this.parentNode.removeChild(this);
+    }
+    
+    var añadirTarea = function(){
+        var 
+            saltoDeLinea = document.createElement("br"),
+            saltoDeLinea2 = document.createElement("br"),
+            saltoDeLinea3 = document.createElement("br");
+
+		saltoDeLinea2.id = "saltoDeLinea2";
+		
+        tareaInput.id = "input-text-superior";
+		tareaInput.setAttribute("type", "text");
+		tareaInput.setAttribute("name", "nombre");
+        tareaInput.setAttribute("placeholcer", "Introduce el nombre");
+        
+		botonAceptar.innerHTML = "Guardar";
+		botonAceptar.setAttribute("type", "submit");
+		botonAceptar.setAttribute("name", "guardar");
+		botonAceptar.setAttribute("value","Guardar");
+        botonAceptar.id = "btn-aceptar-superior";
+
+		botonCancelar.innerHTML = "Cancelar";
+		botonCancelar.setAttribute("type", "submit");
+		botonCancelar.setAttribute("name", "cancelar");
+		botonCancelar.setAttribute("value", "Cancelar");
+        botonCancelar.id = "btn-cancelar-superior";
+
+        //areaSuperior.appendChild(saltoDeLinea);
+        areaSuperior.appendChild(tareaInput);
+        areaSuperior.appendChild(saltoDeLinea2);
+        areaSuperior.appendChild(botonAceptar);
+        areaSuperior.appendChild(botonCancelar);
+		//areaSuperior.appendChild(saltoDeLinea3);
+		
+		//return true;
+    }
+ 
+	var agregarTarea = function(){
+		var tareaInput2 = document.getElementById("input-text-superior"),
+			btn1s = document.getElementById("btn-aceptar-superior"),
+			btn2s = document.getElementById("btn-cancelar-superior"),
+			sl2s = document.getElementById("saltoDeLinea2"),
+			tarea2 = tareaInput.value,
+			nuevaTarea2 = document.createElement("li"),
+			boton2 = document.createElement("INPUT");
+            
+ 
+		if (tarea2 === "") {
+			tareaInput2.setAttribute("placeholder", "Agrega una tarea valida");
+			return false;
+		}
+ 
+		//Ponemos el id y el name del li para luego hacer la modificacion
+		nuevaTarea2.id = "li-" + tareaInput2.value;
+		nuevaTarea2.setAttribute("name", tareaInput2.value);
+		// Agregamos el contenido al boton
+		boton2.innerHTML= tareaInput2.value;
+		boton2.setAttribute("type", "submit");
+		boton2.setAttribute("name", tareaInput2.value);
+		boton2.setAttribute("value",tareaInput2.value);
+		boton2.id = "btn-" + tareaInput2.value;
+
+		
+		// Agrergamos el boton (button) a la nueva tarea (li)
+		nuevaTarea2.appendChild(boton2);
+		// Agregamos la nueva tarea a la lista
+		lista.appendChild(nuevaTarea2);
+
+		
+
+		boton2.addEventListener("click",function(){modificarTarea(boton2.getAttribute("name"))});
+
+		tareaInput2.value = "";
+ 
+		areaSuperior.removeChild(tareaInput2);
+		areaSuperior.removeChild(btn1s);
+		areaSuperior.removeChild(btn2s);
+		areaSuperior.removeChild(sl2s);
+		
+		for (var i = 0; i <= lista.children.length -1; i++) {
+			var botonPulsado = lista.children[i].getAttribute("name");
+			//lista.children[i].addEventListener("click", function(){modificarTarea(botonPulsado)});
+			
+			//lista.children[i].addEventListener("click", function(){
+			//	this.parentNode.removeChild(this);
+			//});
+		}
+		//return true;
+	}
+
+	var cancelarSuperior = function(){
+		var et1 = document.getElementById("input-text-superior"),
+			sl2 = document.getElementById("saltoDeLinea2"),
+			btn1 = document.getElementById("btn-aceptar-superior"),
+			btn2 = document.getElementById("btn-cancelar-superior");
+
+		areaSuperior.removeChild(et1);
+		areaSuperior.removeChild(btn1);
+		areaSuperior.removeChild(btn2);
+		areaSuperior.removeChild(sl2);
+		//et1.remove();
+		//btn1.remove();
+		//btn2.remove();
+
+		//return true;
+	}
+
+	var modificarTarea = function(botonPulsado2){
+		
+		var elementoLista = document.getElementById("li-" + botonPulsado2),
+			botonPulsado3 = document.getElementById("btn-" + botonPulsado2),
+			saltoDeLinea1Mod = document.createElement("br"),
+			saltoDeLinea2Mod = document.createElement("br"),
+			saltoDeLinea3Mod = document.createElement("br"),
+			editTarea3 = document.createElement("INPUT"),
+			boton1mod = document.createElement("INPUT"),
+			boton2mod = document.createElement("INPUT"),
+			boton3mod = document.createElement("INPUT");
+
+
+		editTarea3.id = "input-text-" + botonPulsado2;
+		editTarea3.setAttribute("type", "text");
+		editTarea3.setAttribute("name", "nombre");
+		editTarea3.value = botonPulsado2;
+		editTarea3.setAttribute("placeholcer", botonPulsado2);
+
+		boton1mod.innerHTML = "Guardar";
+		boton1mod.setAttribute("type", "submit");
+		boton1mod.setAttribute("name", "guardar");
+		boton1mod.setAttribute("value","Guardar");
+		boton1mod.id = "btn-aceptar-" + botonPulsado2;
+		
+
+		boton1mod.addEventListener("click", function(){guardarInferior(botonPulsado2)});
+
+		boton2mod.innerHTML = "Cancelar";
+		boton2mod.setAttribute("type", "submit");
+		boton2mod.setAttribute("name","cancelar");
+		boton2mod.setAttribute("value","Cancelar");
+		boton2mod.id = "btn-cancelar-" + botonPulsado2;
+		boton2mod.addEventListener("click", function(){cancelarInferior(botonPulsado2)});
+		
+		boton3mod.innerHTML = "Eliminar";
+		boton3mod.setAttribute("type", "submit");
+		boton3mod.setAttribute("name", "eliminar");
+		boton3mod.setAttribute("value", "Eliminar");
+		boton3mod.id = "btn-eliminar-" + botonPulsado2;
+		boton3mod.addEventListener("click" , function(){eliminarInferior(botonPulsado2)});
+
+		elementoLista.appendChild(saltoDeLinea1Mod);
+		elementoLista.appendChild(editTarea3);
+		elementoLista.appendChild(saltoDeLinea2Mod);
+		elementoLista.appendChild(boton3mod);
+		elementoLista.appendChild(boton2mod);
+		elementoLista.appendChild(boton1mod);
+		elementoLista.appendChild(saltoDeLinea3Mod);
+		elementoLista.removeChild(botonPulsado3);
+
+		//return true;
+
+	}
+
+	var eliminarInferior = function(nombre){
+		var ete = document.getElementById("input-text-" + nombre),
+			bte1 = document.getElementById("btn-aceptar-" + nombre),
+			bte2 = document.getElementById("btn-cancelar-" + nombre),
+			bte3 = document.getElementById("btn-eliminar-" + nombre),
+			lie = document.getElementById("li-" + nombre);
+
+			lie.remove(ete);
+			lie.remove(bte1);
+			lie.remove(bte2);
+			lie.remove(bte3);
+
+		//return true;
+	}
+
+	var cancelarInferior = function(nombre){
+		var etc = document.getElementById("input-text-" + nombre),
+			btc1 = document.getElementById("btn-aceptar-" + nombre),
+			btc2 = document.getElementById("btn-cancelar-" + nombre),
+			btc3 = document.getElementById("btn-eliminar-" + nombre),
+			liec = document.getElementById("li-" + nombre),
+			lic = document.createElement("li"),
+			btcn = document.createElement("INPUT");
+
+		lic.id = "li-" + nombre;
+		lic.setAttribute("name", nombre);
+		
+		btcn.innerHTML= nombre;
+		btcn.setAttribute("type", "submit");
+		btcn.setAttribute("name", nombre);
+		btcn.setAttribute("value",nombre);
+		btcn.id = "btn-" + nombre;
+
+			liec.remove(etc);
+			liec.remove(btc1);
+			liec.remove(btc2);
+			liec.remove(btc3);
+			lic.appendChild(btcn);
+			lista.appendChild(lic);
+
+			btcn.addEventListener("click",function(){modificarTarea(btcn.getAttribute("name"))});
+
+		//return true;
+	}
+
+	var guardarInferior = function(nombre){
+		
+		
+		var etg = document.getElementById("input-text-" + nombre),
+			btg1 = document.getElementById("btn-aceptar-" + nombre),
+			btg2 = document.getElementById("btn-cancelar-" + nombre),
+			btg3 = document.getElementById("btn-eliminar-" + nombre),
+			lieg = document.getElementById("li-" + nombre),
+			lig = document.createElement("li"),
+			btgn = document.createElement("INPUT");
+
+		lig.id = "li-" + etg.value;
+		lig.setAttribute("name", etg.value);
+
+		btgn.innerHTML= etg.value;
+		btgn.setAttribute("type", "submit");
+		btgn.setAttribute("name", etg.value);
+		btgn.setAttribute("value", etg.value);
+		btgn.id = "btn-" + etg.value;
+
+			lieg.remove(etg);
+			lieg.remove(btg1);
+			lieg.remove(btg2);
+			lieg.remove(btg3);
+			lig.appendChild(btgn);
+			lista.appendChild(lig);
+
+			btgn.addEventListener("click",function(){modificarTarea(btgn.getAttribute("name"))});
+
+		//return true;
+	}
+
+	// Eventos
+ 
+	// Comprobar Input
+    //tareaInput.addEventListener("click", comprobarInput);
+    
+    //Añadir tarea
+	bntAñadirTarea.addEventListener("click", añadirTarea);
+	
+	// Agregar Tarea
+	botonAceptar.addEventListener("click", agregarTarea);
+
+	//cancelar tarea superior
+	botonCancelar.addEventListener("click", cancelarSuperior);
+ 
+	// Modificar elementos de la lista
+	for (var i = 0; i <= lista.children.length -1; i++) {
+		var botonPulsado = lista.children[i].getAttribute("name");
+
+		//lista.children[i].addEventListener("click", function(){modificarTarea(botonPulsado)});
+		//lista.children[i].addEventListener("click", eliminarTarea);
+		
+	}
+	
+}());

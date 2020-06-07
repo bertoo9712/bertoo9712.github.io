@@ -1,0 +1,22 @@
+body{
+	background-color: #DCDCDC;
+	font-family: Calibri;
+	margin: 0px;
+}
+div#areaSuperior{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: #DCDCDC;
+}
+div#areaInferior{
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    background-color: rgb(112, 112, 112);
+}
+input{
+    margin-top: 0.5%;
+    margin-bottom: 0.5%;
+    border-radius: 5px;
+}
