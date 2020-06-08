@@ -69,6 +69,10 @@
 			tareaInput2.setAttribute("placeholder", "Agrega una tarea valida");
 			return false;
 		}
+
+		var numeroTareaActual = localStorage.getItem("numTareas");
+		var numeroTareaActualInt = parseInt(numeroTareaActual);
+		numeroTareaActualInt = numeroTareaActualInt + 1;
  
 		//Ponemos el id y el name del li para luego hacer la modificacion
 		nuevaTarea2.id = "li-" + tareaInput2.value;
@@ -78,6 +82,7 @@
 		boton2.setAttribute("type", "submit");
 		boton2.setAttribute("name", tareaInput2.value);
 		boton2.setAttribute("value",tareaInput2.value);
+		boton2.setAttribute("placeholder", numeroTareaActualInt);
 		boton2.id = "btn-" + tareaInput2.value;
 
 		
@@ -86,7 +91,9 @@
 		// Agregamos la nueva tarea a la lista
 		lista.appendChild(nuevaTarea2);
 
-		
+		localStorage.setItem(numeroTareaActualInt, tareaInput2.value);
+		localStorage.setItem("numTareas", numeroTareaActualInt);
+
 
 		boton2.addEventListener("click",function(){modificarTarea(boton2.getAttribute("name"))});
 
@@ -143,11 +150,15 @@
 		editTarea3.setAttribute("name", "nombre");
 		editTarea3.value = botonPulsado2;
 		editTarea3.setAttribute("placeholcer", botonPulsado2);
+		
+		
+		var idTareaMod = botonPulsado3.getAttribute("placeholder");
 
 		boton1mod.innerHTML = "Guardar";
 		boton1mod.setAttribute("type", "submit");
 		boton1mod.setAttribute("name", "guardar");
 		boton1mod.setAttribute("value","Guardar");
+		boton1mod.setAttribute("placeholder", idTareaMod);
 		boton1mod.id = "btn-aceptar-" + botonPulsado2;
 		
 
@@ -157,6 +168,7 @@
 		boton2mod.setAttribute("type", "submit");
 		boton2mod.setAttribute("name","cancelar");
 		boton2mod.setAttribute("value","Cancelar");
+		boton2mod.setAttribute("placeholder", idTareaMod);
 		boton2mod.id = "btn-cancelar-" + botonPulsado2;
 		boton2mod.addEventListener("click", function(){cancelarInferior(botonPulsado2)});
 		
@@ -164,6 +176,7 @@
 		boton3mod.setAttribute("type", "submit");
 		boton3mod.setAttribute("name", "eliminar");
 		boton3mod.setAttribute("value", "Eliminar");
+		boton3mod.setAttribute("placeholder", idTareaMod);
 		boton3mod.id = "btn-eliminar-" + botonPulsado2;
 		boton3mod.addEventListener("click" , function(){eliminarInferior(botonPulsado2)});
 
@@ -186,6 +199,13 @@
 			bte2 = document.getElementById("btn-cancelar-" + nombre),
 			bte3 = document.getElementById("btn-eliminar-" + nombre),
 			lie = document.getElementById("li-" + nombre);
+
+			var idEliminar = bte3.getAttribute("placeholder");
+			localStorage.removeItem(idEliminar);
+			//var numTareaActual = localStorage.getItem("numTareas");
+			//var numTareaActualInt = parseInt(numTareaActual);
+			//numTareaActualInt = numTareaActualInt - 1;
+			//localStorage.setItem("numTareas", numTareaActualInt);
 
 			lie.remove(ete);
 			lie.remove(bte1);
@@ -239,11 +259,16 @@
 		lig.id = "li-" + etg.value;
 		lig.setAttribute("name", etg.value);
 
+		var idBoton = btg1.getAttribute("placeholder");
+
 		btgn.innerHTML= etg.value;
 		btgn.setAttribute("type", "submit");
 		btgn.setAttribute("name", etg.value);
 		btgn.setAttribute("value", etg.value);
+		btgn.setAttribute("placeHolder",idBoton);
 		btgn.id = "btn-" + etg.value;
+
+		localStorage.setItem(idBoton, etg.value);
 
 			lieg.remove(etg);
 			lieg.remove(btg1);
@@ -257,8 +282,61 @@
 		//return true;
 	}
 
+	var cargarTareas = function(){
+
+		console.log("Dentro de cargarTareas");
+
+		if(localStorage.getItem("numTareas")=== null){
+			localStorage.setItem("numTareas", 0);
+		}else if(localStorage.getItem("numTareas")>0){
+			var numTareasACargar = localStorage.getItem("numTareas");
+
+			console.log("on load " + numTareasACargar);
+
+			for(var i = 1; i <= numTareasACargar; i++){
+				var lic = document.createElement("li"),
+					btnc = document.createElement("INPUT");
+
+					var nombreTarea = localStorage.getItem(i);
+
+					if(nombreTarea !== null){
+						lic.id = "li-" + nombreTarea;
+						lic.setAttribute("name", nombreTarea);
+
+						btnc.innerHTML= nombreTarea;
+						btnc.setAttribute("type", "submit");
+						btnc.setAttribute("name", nombreTarea);
+						btnc.setAttribute("value", nombreTarea);
+						btnc.setAttribute("placeHolder",i);
+						btnc.id = "btn-" + nombreTarea;
+						
+						
+						//btnc.addEventListener("click",function(){modificarTarea(btnc.getAttribute("name"))});
+
+						console.log("add lsitener de " + btnc.getAttribute("name"));
+						
+						lic.appendChild(btnc);
+						lista.appendChild(lic);
+
+						addListener(btnc.id);
+					}
+
+					
+			}
+		}
+	}
+
+	var addListener = function(idBotonListener){
+		var botonListener = document.getElementById(idBotonListener);
+
+		botonListener.addEventListener("click",function(){modificarTarea(botonListener.getAttribute("name"))});
+	}
+
 	// Eventos
  
+	//Cargar tareas previas
+	window.addEventListener("load", cargarTareas);
+	
 	// Comprobar Input
     //tareaInput.addEventListener("click", comprobarInput);
     
