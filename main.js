@@ -228,7 +228,7 @@
 		btgn.setAttribute("type", "submit");
 		btgn.setAttribute("name", etg.value);
 		btgn.setAttribute("value", etg.value);
-		btgn.setAttribute("placeHolder",idBoton);
+		btgn.setAttribute("placeholder",idBoton);
 		btgn.id = "btn-" + idBoton + "-" + etg.value;
 
 		localStorage.setItem(idBoton, etg.value);
@@ -265,7 +265,7 @@
 						btnc.setAttribute("type", "submit");
 						btnc.setAttribute("name", nombreTarea);
 						btnc.setAttribute("value", nombreTarea);
-						btnc.setAttribute("placeHolder",i);
+						btnc.setAttribute("placeholder",i);
 						btnc.id = "btn-" + i + "-" + nombreTarea;
 						
 						
