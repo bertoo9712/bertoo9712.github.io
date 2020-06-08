@@ -8,30 +8,16 @@
         areaSuperior = document.getElementById("areaSuperior");
  
 	// Funciones
-	
-	/*
-	var comprobarInput = function(){
-		tareaInput.className = "";
-		tareaInput.setAttribute("placeholder", "Agrega tu tarea");
-	};
-	*/
 
-	var eliminarTarea = function(){
-		this.parentNode.removeChild(this);
-    }
-    
     var añadirTarea = function(){
-        var 
-            saltoDeLinea = document.createElement("br"),
-            saltoDeLinea2 = document.createElement("br"),
-            saltoDeLinea3 = document.createElement("br");
+        var saltoDeLinea2 = document.createElement("br");
 
 		saltoDeLinea2.id = "saltoDeLinea2";
 		
         tareaInput.id = "input-text-superior";
 		tareaInput.setAttribute("type", "text");
 		tareaInput.setAttribute("name", "nombre");
-        tareaInput.setAttribute("placeholcer", "Introduce el nombre");
+        tareaInput.setAttribute("placeholder", "Introduce el nombre");
         
 		botonAceptar.innerHTML = "Guardar";
 		botonAceptar.setAttribute("type", "submit");
@@ -45,14 +31,11 @@
 		botonCancelar.setAttribute("value", "Cancelar");
         botonCancelar.id = "btn-cancelar-superior";
 
-        //areaSuperior.appendChild(saltoDeLinea);
         areaSuperior.appendChild(tareaInput);
         areaSuperior.appendChild(saltoDeLinea2);
         areaSuperior.appendChild(botonAceptar);
         areaSuperior.appendChild(botonCancelar);
-		//areaSuperior.appendChild(saltoDeLinea3);
 		
-		//return true;
     }
  
 	var agregarTarea = function(){
@@ -83,7 +66,7 @@
 		boton2.setAttribute("name", tareaInput2.value);
 		boton2.setAttribute("value",tareaInput2.value);
 		boton2.setAttribute("placeholder", numeroTareaActualInt);
-		boton2.id = "btn-" + tareaInput2.value;
+		boton2.id = "btn-"+ numeroTareaActualInt + "-" + tareaInput2.value;
 
 		
 		// Agrergamos el boton (button) a la nueva tarea (li)
@@ -95,24 +78,16 @@
 		localStorage.setItem("numTareas", numeroTareaActualInt);
 
 
-		boton2.addEventListener("click",function(){modificarTarea(boton2.getAttribute("name"))});
+		boton2.addEventListener("click",function(){modificarTarea(boton2.getAttribute("placeholder"), boton2.getAttribute("name"))});
 
 		tareaInput2.value = "";
+		tareaInput2.setAttribute("placeholder", "");
  
 		areaSuperior.removeChild(tareaInput2);
 		areaSuperior.removeChild(btn1s);
 		areaSuperior.removeChild(btn2s);
 		areaSuperior.removeChild(sl2s);
 		
-		for (var i = 0; i <= lista.children.length -1; i++) {
-			var botonPulsado = lista.children[i].getAttribute("name");
-			//lista.children[i].addEventListener("click", function(){modificarTarea(botonPulsado)});
-			
-			//lista.children[i].addEventListener("click", function(){
-			//	this.parentNode.removeChild(this);
-			//});
-		}
-		//return true;
 	}
 
 	var cancelarSuperior = function(){
@@ -125,17 +100,13 @@
 		areaSuperior.removeChild(btn1);
 		areaSuperior.removeChild(btn2);
 		areaSuperior.removeChild(sl2);
-		//et1.remove();
-		//btn1.remove();
-		//btn2.remove();
 
-		//return true;
 	}
 
-	var modificarTarea = function(botonPulsado2){
+	var modificarTarea = function(placeHolderBotonPulsado2 ,botonPulsado2){
 		
 		var elementoLista = document.getElementById("li-" + botonPulsado2),
-			botonPulsado3 = document.getElementById("btn-" + botonPulsado2),
+			botonPulsado3 = document.getElementById("btn-"+ placeHolderBotonPulsado2 + "-" + botonPulsado2),
 			saltoDeLinea1Mod = document.createElement("br"),
 			saltoDeLinea2Mod = document.createElement("br"),
 			saltoDeLinea3Mod = document.createElement("br"),
@@ -149,7 +120,7 @@
 		editTarea3.setAttribute("type", "text");
 		editTarea3.setAttribute("name", "nombre");
 		editTarea3.value = botonPulsado2;
-		editTarea3.setAttribute("placeholcer", botonPulsado2);
+		editTarea3.setAttribute("placeholder", botonPulsado2);
 		
 		
 		var idTareaMod = botonPulsado3.getAttribute("placeholder");
@@ -160,8 +131,6 @@
 		boton1mod.setAttribute("value","Guardar");
 		boton1mod.setAttribute("placeholder", idTareaMod);
 		boton1mod.id = "btn-aceptar-" + botonPulsado2;
-		
-
 		boton1mod.addEventListener("click", function(){guardarInferior(botonPulsado2)});
 
 		boton2mod.innerHTML = "Cancelar";
@@ -189,8 +158,6 @@
 		elementoLista.appendChild(saltoDeLinea3Mod);
 		elementoLista.removeChild(botonPulsado3);
 
-		//return true;
-
 	}
 
 	var eliminarInferior = function(nombre){
@@ -202,17 +169,12 @@
 
 			var idEliminar = bte3.getAttribute("placeholder");
 			localStorage.removeItem(idEliminar);
-			//var numTareaActual = localStorage.getItem("numTareas");
-			//var numTareaActualInt = parseInt(numTareaActual);
-			//numTareaActualInt = numTareaActualInt - 1;
-			//localStorage.setItem("numTareas", numTareaActualInt);
 
 			lie.remove(ete);
 			lie.remove(bte1);
 			lie.remove(bte2);
 			lie.remove(bte3);
 
-		//return true;
 	}
 
 	var cancelarInferior = function(nombre){
@@ -227,11 +189,14 @@
 		lic.id = "li-" + nombre;
 		lic.setAttribute("name", nombre);
 		
+		var idBotonC = btc2.getAttribute("placeholder");
+
 		btcn.innerHTML= nombre;
 		btcn.setAttribute("type", "submit");
 		btcn.setAttribute("name", nombre);
 		btcn.setAttribute("value",nombre);
-		btcn.id = "btn-" + nombre;
+		btcn.setAttribute("placeHolder",idBotonC);
+		btcn.id = "btn-" + idBotonC + "-" + nombre;
 
 			liec.remove(etc);
 			liec.remove(btc1);
@@ -240,13 +205,11 @@
 			lic.appendChild(btcn);
 			lista.appendChild(lic);
 
-			btcn.addEventListener("click",function(){modificarTarea(btcn.getAttribute("name"))});
+			btcn.addEventListener("click",function(){modificarTarea(btcn.getAttribute("placeholder") ,btcn.getAttribute("name"))});
 
-		//return true;
 	}
 
 	var guardarInferior = function(nombre){
-		
 		
 		var etg = document.getElementById("input-text-" + nombre),
 			btg1 = document.getElementById("btn-aceptar-" + nombre),
@@ -266,7 +229,7 @@
 		btgn.setAttribute("name", etg.value);
 		btgn.setAttribute("value", etg.value);
 		btgn.setAttribute("placeHolder",idBoton);
-		btgn.id = "btn-" + etg.value;
+		btgn.id = "btn-" + idBoton + "-" + etg.value;
 
 		localStorage.setItem(idBoton, etg.value);
 
@@ -277,21 +240,16 @@
 			lig.appendChild(btgn);
 			lista.appendChild(lig);
 
-			btgn.addEventListener("click",function(){modificarTarea(btgn.getAttribute("name"))});
+			btgn.addEventListener("click",function(){modificarTarea(btgn.getAttribute("placeholder") ,btgn.getAttribute("name"))});
 
-		//return true;
 	}
 
 	var cargarTareas = function(){
-
-		console.log("Dentro de cargarTareas");
 
 		if(localStorage.getItem("numTareas")=== null){
 			localStorage.setItem("numTareas", 0);
 		}else if(localStorage.getItem("numTareas")>0){
 			var numTareasACargar = localStorage.getItem("numTareas");
-
-			console.log("on load " + numTareasACargar);
 
 			for(var i = 1; i <= numTareasACargar; i++){
 				var lic = document.createElement("li"),
@@ -308,12 +266,8 @@
 						btnc.setAttribute("name", nombreTarea);
 						btnc.setAttribute("value", nombreTarea);
 						btnc.setAttribute("placeHolder",i);
-						btnc.id = "btn-" + nombreTarea;
+						btnc.id = "btn-" + i + "-" + nombreTarea;
 						
-						
-						//btnc.addEventListener("click",function(){modificarTarea(btnc.getAttribute("name"))});
-
-						console.log("add lsitener de " + btnc.getAttribute("name"));
 						
 						lic.appendChild(btnc);
 						lista.appendChild(lic);
@@ -329,7 +283,7 @@
 	var addListener = function(idBotonListener){
 		var botonListener = document.getElementById(idBotonListener);
 
-		botonListener.addEventListener("click",function(){modificarTarea(botonListener.getAttribute("name"))});
+		botonListener.addEventListener("click",function(){modificarTarea(botonListener.getAttribute("placeholder"), botonListener.getAttribute("name"))});
 	}
 
 	// Eventos
@@ -348,14 +302,5 @@
 
 	//cancelar tarea superior
 	botonCancelar.addEventListener("click", cancelarSuperior);
- 
-	// Modificar elementos de la lista
-	for (var i = 0; i <= lista.children.length -1; i++) {
-		var botonPulsado = lista.children[i].getAttribute("name");
-
-		//lista.children[i].addEventListener("click", function(){modificarTarea(botonPulsado)});
-		//lista.children[i].addEventListener("click", eliminarTarea);
-		
-	}
 	
 }());
