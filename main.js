@@ -195,7 +195,7 @@
 		btcn.setAttribute("type", "submit");
 		btcn.setAttribute("name", nombre);
 		btcn.setAttribute("value",nombre);
-		btcn.setAttribute("placeHolder",idBotonC);
+		btcn.setAttribute("placeholder",idBotonC);
 		btcn.id = "btn-" + idBotonC + "-" + nombre;
 
 			liec.remove(etc);
