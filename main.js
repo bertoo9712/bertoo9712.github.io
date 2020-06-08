@@ -148,7 +148,8 @@
 		boton3mod.setAttribute("placeholder", idTareaMod);
 		boton3mod.id = "btn-eliminar-" + botonPulsado2;
 		boton3mod.addEventListener("click" , function(){eliminarInferior(botonPulsado2)});
-
+		
+		elementoLista.removeChild(botonPulsado3);
 		elementoLista.appendChild(saltoDeLinea1Mod);
 		elementoLista.appendChild(editTarea3);
 		elementoLista.appendChild(saltoDeLinea2Mod);
@@ -156,7 +157,7 @@
 		elementoLista.appendChild(boton2mod);
 		elementoLista.appendChild(boton1mod);
 		elementoLista.appendChild(saltoDeLinea3Mod);
-		elementoLista.removeChild(botonPulsado3);
+		
 
 	}
 
