@@ -58,7 +58,7 @@
 		numeroTareaActualInt = numeroTareaActualInt + 1;
  
 		//Ponemos el id y el name del li para luego hacer la modificacion
-		nuevaTarea2.id = "li-" + tareaInput2.value;
+		nuevaTarea2.id = "li-" + numeroTareaActualInt + "-" + tareaInput2.value;
 		nuevaTarea2.setAttribute("name", tareaInput2.value);
 		// Agregamos el contenido al boton
 		boton2.innerHTML= tareaInput2.value;
@@ -105,7 +105,7 @@
 
 	var modificarTarea = function(placeHolderBotonPulsado2 ,botonPulsado2){
 		
-		var elementoLista = document.getElementById("li-" + botonPulsado2),
+		var elementoLista = document.getElementById("li-" + placeHolderBotonPulsado2 + "-" + botonPulsado2),
 			botonPulsado3 = document.getElementById("btn-"+ placeHolderBotonPulsado2 + "-" + botonPulsado2),
 			saltoDeLinea1Mod = document.createElement("br"),
 			saltoDeLinea2Mod = document.createElement("br"),
@@ -165,10 +165,12 @@
 		var ete = document.getElementById("input-text-" + nombre),
 			bte1 = document.getElementById("btn-aceptar-" + nombre),
 			bte2 = document.getElementById("btn-cancelar-" + nombre),
-			bte3 = document.getElementById("btn-eliminar-" + nombre),
-			lie = document.getElementById("li-" + nombre);
+			bte3 = document.getElementById("btn-eliminar-" + nombre);
 
 			var idEliminar = bte3.getAttribute("placeholder");
+
+			var lie = document.getElementById("li-" + idEliminar + "-" + nombre);
+
 			localStorage.removeItem(idEliminar);
 
 			lie.remove(ete);
@@ -183,14 +185,15 @@
 			btc1 = document.getElementById("btn-aceptar-" + nombre),
 			btc2 = document.getElementById("btn-cancelar-" + nombre),
 			btc3 = document.getElementById("btn-eliminar-" + nombre),
-			liec = document.getElementById("li-" + nombre),
 			lic = document.createElement("li"),
 			btcn = document.createElement("INPUT");
-
-		lic.id = "li-" + nombre;
-		lic.setAttribute("name", nombre);
 		
 		var idBotonC = btc2.getAttribute("placeholder");
+
+		var liec = document.getElementById("li-" + idBotonC + "-" + nombre);
+
+		lic.id = "li-" + idBotonC + "-" + nombre;
+		lic.setAttribute("name", nombre);
 
 		btcn.innerHTML= nombre;
 		btcn.setAttribute("type", "submit");
@@ -216,14 +219,15 @@
 			btg1 = document.getElementById("btn-aceptar-" + nombre),
 			btg2 = document.getElementById("btn-cancelar-" + nombre),
 			btg3 = document.getElementById("btn-eliminar-" + nombre),
-			lieg = document.getElementById("li-" + nombre),
 			lig = document.createElement("li"),
 			btgn = document.createElement("INPUT");
 
-		lig.id = "li-" + etg.value;
-		lig.setAttribute("name", etg.value);
-
 		var idBoton = btg1.getAttribute("placeholder");
+
+		var lieg = document.getElementById("li-" + idBoton + "-" + nombre);
+
+		lig.id = "li-" + idBoton + "-" + etg.value;
+		lig.setAttribute("name", etg.value);
 
 		btgn.innerHTML= etg.value;
 		btgn.setAttribute("type", "submit");
@@ -259,7 +263,7 @@
 					var nombreTarea = localStorage.getItem(i);
 
 					if(nombreTarea !== null){
-						lic.id = "li-" + nombreTarea;
+						lic.id = "li-" + i + "-" + nombreTarea;
 						lic.setAttribute("name", nombreTarea);
 
 						btnc.innerHTML= nombreTarea;
